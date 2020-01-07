@@ -1,0 +1,4 @@
+:8000 {
+	gzip
+	browse / browse.tpl
+}
