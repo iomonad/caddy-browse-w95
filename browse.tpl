@@ -44,13 +44,13 @@
 	     padding: 10px;
 	     
 	 }
-	 .container .container-inner ul.icons {
+	 .container .container-inner .file-explorer {
 	     list-style: none;
 	     padding: 2px 0;
 	     margin: 0;
 	     
 	 }
-	 .container .container-inner ul.icons li {
+	 .container .container-inner ul.file ul.folder  {
 	     display: inline-block;
 	     padding: 0 5px;
 	     
@@ -135,7 +135,7 @@
 		</div>
 		<h1>
 		    <div class="icon-my-computer">
-		    </div> 
+		    </div> C:\\{{.Host}}{{.Path}}
 		</h1>
 	    </div>
 	    <ul class="toolbar">
@@ -146,24 +146,40 @@
 		    <u>E</u>dit
 		</li>
 		<li>
-		    <u>V
+		    <u>V</u>iew
 		</li>
 		<li>
 		    <u>H</u>elp
 		</li>
 	    </ul>
 	    <div class="container-inner">
-		<ul class="icons">
-		    <li class="icon-floppy">3½ Floppy (A:)
+		<ul class="file-explorer">
+		    {{if .CanGoUp}}
+		    <li class="folder">
+			<span id="back-arrow">&lsaquo;</span>
+			<a href="..">..</a>
 		    </li>
-		    <li class="icon-disk">Hard Drive (C:)
-		    </li>
-		    <li class="icon-control-panel">Control Panel
-		    </li>
+		    {{end}}
+		    {{range .Items}}
+		    {{if .IsDir}}
+			<li class="folder">
+			    <span id="back-arrow">&lsaquo;</span>
+			    <a href="{{.URL}}"><script>document.write(location.protocol)</script>//{{$.Host}}/{{.Name}}</a>
+			</li>
+			{{end}}
+			{{end}}
+			{{range .Items}}
+			{{if not .IsDir}}
+			    <li class="file">
+				<span id="back-arrow">&lsaquo;</span>
+				<a href="{{.URL}}"><script>document.write(location.protocol)</script>//{{$.Host}}/{{.Name}}</a>
+			    </li>
+			    {{end}}
+			    {{end}}
 		</ul>
 	    </div>
 	    <div class="statusbar">
-		<div class="left">3 object(s)
+		<div class="left"><script> document.getElementById("file-explorer").getElementsByTagName("LI").length;</script> object(s)
 		</div>
 		<div class="right">&nbsp;
 		</div>
